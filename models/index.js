@@ -1,6 +1,6 @@
 const User = require('./User');
 const Appointment = require('./Appointment');
-const Pet = require("Pet");
+const Pet = require("./Pet");
 const Preference = require("./Preference");
 const Trait = require("./Trait");
 
