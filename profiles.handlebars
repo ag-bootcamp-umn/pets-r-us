@@ -1,0 +1,14 @@
+<h1>Pets You've Matched {{{pets_number}}}</h1>
+{{#each projects as |project| }}
+<div class="row">
+  <div class="col-6 col-md-4">
+    <h2>
+      {{{get_picture}}}
+      {{!-- picture referance ie --}}
+      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
+      {{{get_name}}}
+    </h2>
+
+  </div>
+</div>
+{{/each}}
