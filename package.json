@@ -1,0 +1,28 @@
+{
+  "name": "pets-4-us",
+  "version": "1.0.0",
+  "description": "A mock pet rescue app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ag-bootcamp-umn/pets-r-us.git"
+  },
+  "author": "Alex Geer, Austin Ries, Jack Bittner, Kevin Delaria, Daniel Noonan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ag-bootcamp-umn/pets-r-us/issues"
+  },
+  "homepage": "https://github.com/ag-bootcamp-umn/pets-r-us#readme",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.36.0"
+  }
+}
