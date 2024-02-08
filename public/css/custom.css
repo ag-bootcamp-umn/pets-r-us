@@ -1,0 +1,61 @@
+:root {
+    --logo-size: 3rem;
+}
+
+header {
+    background-image: repeating-linear-gradient(
+        45deg,
+        #ffffff,
+        #ffffff 10px,
+        #d8d7d7 10px,
+        #d8d7d7 20px
+    );
+    color: #ffffff;
+    border-bottom: 4px solid #d8d7d7;
+    outline: 4px solid #6b6b6b;
+}
+
+footer {
+    background-image: repeating-linear-gradient(
+        45deg,
+        #ffffff,
+        #ffffff 10px,
+        #d8d7d7 10px,
+        #d8d7d7 20px
+    );
+    color: #ffffff;
+    border-top: 4px solid #d8d7d7;
+    outline: 4px solid #6b6b6b;
+}
+
+h1 {
+    font-family: "chaloops", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: white;
+    font-size: var(--logo-size);
+    text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59, 2px 2px 0 #ea3a59;
+}
+
+h2 {
+    font-family: "chaloops", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: white;
+    font-size: 2rem;
+    text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59, 2px 2px 0 #ea3a59;
+}
+
+h3 {
+    color: #424242;
+    font-size: 1.5rem;
+    font-family: franklin-gothic-urw, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.red {
+    color: #ea3a59;
+    text-shadow: none;
+    font-size: calc(var(--logo-size)*1.2);
+}
