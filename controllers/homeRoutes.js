@@ -5,21 +5,20 @@ router.get('/', (req, res) => {
   res.render('home')
 });
 
-router.get('/signin', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-  res.render('signin');
+router.get('/meet', (req, res) => {
+  res.render('meet');
+});
+
+router.get('/pets', (req, res) => {
+  res.render('petprofiles')
+});
+
+router.get('/user', (req, res) => {
+  res.render('profile');
 });
 
 router.get('/signup',(req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
   res.render('signup');
 });
-
 
 module.exports = router;
