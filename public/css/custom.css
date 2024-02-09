@@ -1,102 +1,118 @@
 :root {
-    --logo-size: 3rem;
+  --logo-size: 3rem;
 }
 
 header {
-    background-image: repeating-linear-gradient(
-        45deg,
-        #ffffff,
-        #ffffff 10px,
-        #d8d7d7 10px,
-        #d8d7d7 20px
-    );
-    color: #ffffff;
-    border-bottom: 4px solid #d8d7d7;
-    outline: 4px solid #6b6b6b;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 10px,
+    #d8d7d7 10px,
+    #d8d7d7 20px
+  );
+  color: #ffffff;
+  border-bottom: 4px solid #d8d7d7;
+  outline: 4px solid #6b6b6b;
 }
 
 footer {
-    background-image: repeating-linear-gradient(
-        45deg,
-        #ffffff,
-        #ffffff 10px,
-        #d8d7d7 10px,
-        #d8d7d7 20px
-    );
-    color: #ffffff;
-    border-top: 4px solid #d8d7d7;
-    outline: 4px solid #6b6b6b;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 10px,
+    #d8d7d7 10px,
+    #d8d7d7 20px
+  );
+  color: #ffffff;
+  border-top: 4px solid #d8d7d7;
+  outline: 4px solid #6b6b6b;
 }
 
 h1 {
-    font-family: "chaloops", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    color: white;
-    font-size: var(--logo-size);
-    text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59, 2px 2px 0 #ea3a59;
+  font-family: "chaloops", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  font-size: var(--logo-size);
+  text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59,
+    2px 2px 0 #ea3a59;
 }
 
 h2 {
-    font-family: "chaloops", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    color: white;
-    font-size: 2rem;
-    text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59, 2px 2px 0 #ea3a59;
+  font-family: "chaloops", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  font-size: 2rem;
+  text-shadow: -2px -2px 0 #ea3a59, 2px -2px 0 #ea3a59, -2px 2px 0 #ea3a59,
+    2px 2px 0 #ea3a59;
 }
 
 h3 {
-    color: #424242;
-    font-size: 1.5rem;
-    font-family: franklin-gothic-urw, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  color: #424242;
+  font-size: 1.5rem;
+  font-family: franklin-gothic-urw, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .red {
-    color: #ea3a59;
-    text-shadow: none;
-    font-size: calc(var(--logo-size)*1.2);
+  color: #ea3a59;
+  text-shadow: none;
+  font-size: calc(var(--logo-size) * 1.2);
 }
 
 .img-box {
-    width: 100%;
+  width: 100%;
 }
 
 .text-box {
-    border: 4px solid #6b6b6b; 
+  border: 4px solid #6b6b6b;
 }
 
 .hero {
-    position: relative;
-    overflow: hidden;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+  position: relative;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-  .gradient-bottom::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
+.page {
+    height: 800px;
+}
 
-  .gradient-bottom > * {
-    position: relative;
-    z-index: 2;
-  }
-  
+.page h2 {
+    font-size: 3rem;
+}
 
-  .gradient-bottom {
-    position: relative;
-    height: 200px;
-  }
-  
+.page label {
+    font-size: 1.5rem;
+}
+
+.gradient-bottom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gradient-bottom > * {
+  position: relative;
+  z-index: 2;
+}
+
+.gradient-bottom {
+  position: relative;
+  height: 200px;
+}
