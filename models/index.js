@@ -15,6 +15,4 @@ User.belongsToMany(Pet, {
       unique: false
     }});
 
-  
-
 module.exports = { User, Pet, Appointment };
