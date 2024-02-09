@@ -8,6 +8,13 @@ class User extends Model {
   }
 }
 
+// SPECIES IDs
+// 1 = Dog
+// 2 = Cat
+// 3 = Bird
+// 4 = Rodent
+// 5 = Other
+
 User.init(
   {
     id: {
@@ -20,6 +27,15 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    species: {
+      type: DataTypes.INTEGER,
+    },
+    hypoallergenic: {
+      type: DataTypes.BOOLEAN,
+    },
+    kidsStatus: {
+      type: DataTypes.BOOLEAN,
+    }
     email: {
       type: DataTypes.STRING,
       allowNull: false,
