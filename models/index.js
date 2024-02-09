@@ -13,7 +13,6 @@ Trait.belongsTo(Pet, {
   foreignKey: 'pet_id'
 });
 
-
 Pet.belongsToMany(User,{
   through: {
     model: Preference,
@@ -41,4 +40,4 @@ User.belongsToMany(Pet, {
 
   
 
-module.exports = { User, Pet, Appointment };
+module.exports = { User, Pet, Trait, Preference, Appointment };
