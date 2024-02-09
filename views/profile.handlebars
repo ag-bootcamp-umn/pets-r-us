@@ -1,4 +1,3 @@
-<main class="container-fluid px-0">
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{name}}!</h2>
@@ -6,6 +5,8 @@
 </div>
 
 <div class="row mt-4">
+  <h3>Appointments:</h3>
+
   {{#if appoinments.length}}
   <div class="col-md-6 ">
     <h3>Upcoming Appointments:</h3>
@@ -24,7 +25,7 @@ NEED TO CONNECT SELECTED APPOINMENT DATES
     {{/each}} --}}
   </div>
   {{/if}}
-
+</div>
 
 <div>
   <h3>Preferances</h3>
@@ -41,6 +42,5 @@ NEED TO CONNECT SELECTED APPOINMENT DATES
   <input type = 'checkbox' id = 'energetic'/> <label for 'energetic'>Energetic</label>
   </div>
 </div>
-</div>
-</main>
+
 <script src="./js/profile.js"></script>
