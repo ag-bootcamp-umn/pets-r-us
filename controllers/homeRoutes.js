@@ -6,28 +6,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/meet', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/signin');
-    return;
-  }
-  res.render('signup');
+  res.render('meet');
 });
 
-router.get('/signin', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-  res.render('signin');
+router.get('/pets', (req, res) => {
+  res.render('petprofiles')
+});
+
+router.get('/user', (req, res) => {
+  res.render('profile');
 });
 
 router.get('/signup',(req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
   res.render('signup');
 });
-
 
 module.exports = router;
