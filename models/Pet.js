@@ -4,6 +4,13 @@ const sequelize = require('../config/connection');
 class Pet extends Model {
 }
 
+// SPECIES IDs
+// 1 = Dog
+// 2 = Cat
+// 3 = Bird
+// 4 = Rodent
+// 5 = Other
+
 Pet.init(
   {
     id: {
@@ -17,13 +24,20 @@ Pet.init(
       allowNull: false,
     },
     species: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    hypoallergenic: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    kidsStatus: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     dob: {
       type: DataTypes.DATE,
       allowNull: false,
-      unique: true,
       validate: {
         isDate: true,
       },
