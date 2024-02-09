@@ -12,17 +12,17 @@ Trait.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     pet_id: {
         type: DataTypes.INTEGER,
         references: {
           model: 'pet',
           key: 'id',
         },
-      }
+      },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,

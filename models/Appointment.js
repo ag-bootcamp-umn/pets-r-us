@@ -12,7 +12,7 @@ Appointment.init(
       autoIncrement: true,
     },
     date: {
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     date_created: {
