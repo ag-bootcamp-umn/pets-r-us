@@ -33,6 +33,14 @@ router.get('/signup',(req, res) => {
   res.render('signup');
 });
 
+router.get('/signin',(req, res) => {
+  res.render('signin');
+});
+
+router.get('/submit-your-login-form',(req, res) => {
+  res.render('new-login');
+});
+
 router.all('*', (req, res) => {
   res.render('404');
 });
