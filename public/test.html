@@ -10,18 +10,33 @@
     <div class="flex-column justify-space-around">
       <header class="display-flex justify-space-between align-center p-2">
         <h1>
-          <span class="p-2">Pets<span class="red">R</span>Us</span>
+          <a class="logo" href="/"></a>
+            <span class="p-2">Pets<span class="red">R</span>Us</span>
+          </a>
         </h1>
       </header>
     </div>
     <!-- HOME.HANDLEBARS START -->
     <main class="container-fluid px-0" style="overflow: hidden;">
-      <row class="d-flex flex-column align-items-center justify-content-center page">
-        <h2>Ruh Roh!</h2>
-        <p class="w-25 text-center">We couldn't find that page :(</p>
-        <p>404 Error Page Not Found.</p>
-        <a href="/">Back to Homepage</a>
-      </row>
+      <div>
+        <div class="col-auto mx-2 my-5">
+        <h2>Welcome, {{name}}!</h2>
+        <h3>Appointments:</h3>
+    
+        {{#if appoinments.length}}
+        <h3>Upcoming Appointments:</h3>
+        {{!--
+        NEED TO CONNECT SELECTED APPOINMENT DATES
+    
+        {{#each projects as |project|}}
+        <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
+              <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
+          {{/each}} --}}
+        {{/if}}
+        <h3>Preferences</h3>
+        <a href="/submit-your-login-form">Want to change your preferences?  Click here.</a>
+      </div>
+    
     </main>
     <!-- HOME.HANDLEBARS END -->
     <footer class="display-flex justify-space-between align-center p-2">
