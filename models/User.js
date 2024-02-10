@@ -35,7 +35,7 @@ User.init(
     },
     kidsStatus: {
       type: DataTypes.BOOLEAN,
-    }
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,

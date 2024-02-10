@@ -1,49 +1,21 @@
-<main class="container-fluid px-0" style="overflow: hidden;">
-  <div>
-    <div class="col-auto">
-      <h2>Welcome, {{name}}!</h2>
-    </div>
-  </div>
-
-  <div>
-    <h3>Appointments:</h3>
-
-    {{#if appoinments.length}}
-    <div class="col-md-6 ">
-      <h3>Upcoming Appointments:</h3>
-      {{!--
-      NEED TO CONNECT SELECTED APPOINMENT DATES
-
-      {{#each projects as |project|}}
-      <div class="row mb-2">
-        <div class="col-md-8">
-          <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
-        </div>
-        <div class="col-md-4">
-          <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
-        </div>
-      </div>
-      {{/each}} --}}
-    </div>
-    {{/if}}
-
-    <div class="col-md-6 ">
-      <h3>Preferances</h3>
+    <main class="container-fluid px-0" style="overflow: hidden;">
       <div>
-        <input type='checkbox' id='house_trained' /> <label for 'house_trained'>House Trained</label>
+        <div class="col-auto mx-2 my-5">
+        <h2>Welcome, {{name}}!</h2>
+        <h3>Appointments:</h3>
+    
+        {{#if appoinments.length}}
+        <h3>Upcoming Appointments:</h3>
+        {{!--
+        NEED TO CONNECT SELECTED APPOINMENT DATES
+    
+        {{#each projects as |project|}}
+        <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
+              <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
+          {{/each}} --}}
+        {{/if}}
+        <h3>Preferences</h3>
+        <a href="/submit-your-login-form">Want to change your preferences?  Click here.</a>
       </div>
-      <div>
-        <input type='checkbox' id='small_animals' /> <label for 'small_animals'>Works Well With Other Small
-          Animals</label>
-      </div>
-      <div>
-        <input type='checkbox' id='large_animals' /> <label for 'large_animals'>Works Well With Other Large
-          Animals</label>
-      </div>
-      <div>
-        <input type='checkbox' id='energetic' /> <label for 'energetic'>Energetic</label>
-      </div>
-    </div>
-  </div>
-
-</main>
+    
+    </main>
