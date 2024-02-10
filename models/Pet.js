@@ -31,7 +31,7 @@ Pet.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    kidsStatus: {
+    kids_status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
