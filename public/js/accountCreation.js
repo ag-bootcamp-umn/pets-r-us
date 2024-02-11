@@ -30,12 +30,12 @@ $(document).ready(function() {
 
     function sendAnswersToServer() {
         $.ajax({
-            url: '/api/',
+            url: '/api/users',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({answers: answers}),
             success: function(response) {
-                window.location.href = "/profile";
+                window.location.href = "/user";
             },
             error: function(xhr, status, error) {
                 console.error("Error submitting answers:", status, error);

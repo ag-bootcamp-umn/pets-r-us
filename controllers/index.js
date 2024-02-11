@@ -6,4 +6,8 @@ const homeRoutes = require('./homeRoutes');
 router.use('/', homeRoutes);
 router.use('/api', apiRoutes);
 
+router.all('*', (req, res) => {
+    res.render('404');
+  });
+
 module.exports = router;
