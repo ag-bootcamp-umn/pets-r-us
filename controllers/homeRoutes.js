@@ -37,7 +37,7 @@ router.get('/signin',(req, res) => {
   res.render('signin');
 });
 
-router.get('/submit-your-login-form',(req, res) => {
+router.get('/new-login',(req, res) => {
   res.render('new-login');
 });
 
