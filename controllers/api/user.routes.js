@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 // New Account
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
     const dbUserData = await User.create({
       email: req.body.email,
@@ -11,14 +11,45 @@ router.post('/', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userId = dbUserData.id;
 
-      res.status(200).json(dbUserData);
+      res.status(200).json({ user: dbUserData, userId: dbUserData.id });
     });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
+
+// Modify Account
+router.put('/signup/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const [updatedRows] = await User.update({
+      species: req.body.species,
+      hypoallergenic: req.body.hypoallergenic,
+      kidsStatus: req.body.kidsStatus,
+    }, {
+      where: { id: userId },
+    });
+
+    if (updatedRows > 0) {
+      const dbUserData = await User.findByPk(userId);
+      if (dbUserData) {
+        res.status(200).json({ user: dbUserData });
+      } else {
+        res.status(404).json({ message: "Ruh Roh!  No user, Raggy." });
+      }
+    } else {
+      res.status(404).json({ message: "Ruh Roh!  No user ID, Raggy." });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 
 // Login
 router.post('/login', async (req, res) => {
@@ -32,7 +63,7 @@ router.post('/login', async (req, res) => {
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Ruh Roh!  Wrong email or password, Raggy.' });
       return;
     }
 
@@ -41,7 +72,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Ruh Roh!  Wrong email or password, Raggy.' });
       return;
     }
 
