@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const dayjs = require('dayjs');
 const withAuth = require('../utils/auth');
 const {User, Pet} = require("../models")
 
@@ -7,7 +8,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/meet', (req, res) => {
-  res.render('meet');
+  const now = dayjs().format('YYYY-MM-DD');
+
+  res.render('appointment', {now});
 });
 
 router.get('/pets', async (req, res) => {
