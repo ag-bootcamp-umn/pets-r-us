@@ -3,8 +3,12 @@
   <p>Please select a date to meet.</p>
 </div>
 <div class="text-center">
-<input type="date" id="meet"  value="2024-02-01" min="2024-02-01" max="2030-12-31" />
+  <form class="appointment-form">
+<input type="date" id="appointment-date" value="{{now}}" min="2024-02-01" max="2030-12-31" />
   <p>
     <button class="btn btn-primary" type="submit">Submit</button>
   </p>
+  </form>
+
 </div>
+<script src="./js/appointment.js"></script>

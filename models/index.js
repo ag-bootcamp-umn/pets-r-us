@@ -1,29 +1,6 @@
 const User = require('./User');
 const Appointment = require('./Appointment');
 const Pet = require("./Pet");
-const Preference = require("./Preference");
-const Trait = require("./Trait");
-
-Pet.hasMany(Trait, {
-  foreignKey: 'pet_id',
-  onDelete: 'CASCADE'
-});
-
-Trait.belongsTo(Pet, {
-  foreignKey: 'pet_id'
-});
-
-Pet.belongsToMany(User,{
-  through: {
-    model: Preference,
-    unique: false
-  }});
-
-  User.belongsToMany(Pet,{
-    through: {
-      model: Preference,
-      unique: false
-    }});
 
 User.belongsToMany(Pet, {
     through: {
@@ -38,6 +15,4 @@ User.belongsToMany(Pet, {
       unique: false
     }});
 
-  
-
-module.exports = { User, Pet, Trait, Preference, Appointment };
+module.exports = { User, Pet, Appointment };

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const dayjs = require('dayjs');
 const withAuth = require('../utils/auth');
 
 router.get('/', (req, res) => {
@@ -6,19 +7,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/meet', (req, res) => {
-  res.render('meet');
-});
+  const now = dayjs().format('YYYY-MM-DD');
 
-router.get('/pets', (req, res) => {
-  res.render('petprofiles')
-});
-
-router.get('/user', (req, res) => {
-  res.render('profile');
-});
-
-router.get('/meet', (req, res) => {
-  res.render('meet');
+  res.render('appointment', {now});
 });
 
 router.get('/pets', (req, res) => {
@@ -33,8 +24,12 @@ router.get('/signup',(req, res) => {
   res.render('signup');
 });
 
-router.all('*', (req, res) => {
-  res.render('404');
+router.get('/signin',(req, res) => {
+  res.render('signin');
+});
+
+router.get('/submit-your-login-form',(req, res) => {
+  res.render('new-login');
 });
 
 module.exports = router;
