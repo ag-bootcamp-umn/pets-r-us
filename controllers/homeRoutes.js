@@ -11,9 +11,9 @@ router.get('/meet/:pet_id', async (req, res) => {
   try {
     const now = dayjs().format('YYYY-MM-DD');
     const petData = await Pet.findByPk(req.params.pet_id);
-    const pet = petData.get({ plain: true });
+    const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
-      ...pet, now
+      now, pet,
       // logged_in: req.session.logged_in
     });
   } catch (err) {
