@@ -16,17 +16,36 @@ router.get('/meet', (req, res) => {
 router.get('/pets', async (req, res) => {
   
   try {
-    const petData = await Pet.findAll();
-
-    // Serialize data so the template can read it
+    // const loggedIn = (req.session.loggedIn)? req.session.loggedIn : false;
+    // let petData;
+    // // non-logged in user
+    // if (!loggedIn) {
+    // petData = await Pet.findAll();
+    // const pets = petData.map((pet) => pet.get({ plain: true }));
+    // }
+    // // Logged IN user
+    // else {
+    const userData = await User.findByPk(3, {attributes: { exclude: ['password'] }});
+      // where:{$or [
+      //   {"user.species":"pet.species"},
+      //   {"user.hypoallergenic":"pet.hypoallergenic"},
+      //   {"user.kids_status":"user.kids_status"}
+      // ]} 
+    
+    const petData = await Pet.findAll({
+      where:{ [
+        {species:"pet.species"},
+        {"user.hypoallergenic":"pet.hypoallergenic"},
+        {"user.kids_status":"user.kids_status"}
+      ]}
+  });
+    // }
     const pets = petData.map((pet) => pet.get({ plain: true }));
-    const pets_number = pets.length;
-
-    // Pass serialized data and session flag into template
+    //const pets_number = pets.length;
     res.render('petprofiles', { 
-      pets_number,
+      //pets_number,
       pets, 
-      loggedIn: req.session.loggedIn 
+      //loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
