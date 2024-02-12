@@ -9,7 +9,7 @@ appointmentForm.addEventListener('submit', async (event) => {
   const appointmentPost = {appointmentDate};
   console.log('apptPost:', appointmentPost);
   
-const response = await fetch('api/meet', {
+const response = await fetch('/api/meet', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

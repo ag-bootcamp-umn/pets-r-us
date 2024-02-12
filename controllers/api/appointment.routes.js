@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
   try {
     console.log(req.body);
     res.json({
-      msg: 'You go, Girl!'
+      msg: 'You did it!'
     })
   } catch {
     res.status(500).json(err);
