@@ -25,14 +25,16 @@ router.get('/pets', async (req, res) => {
     // }
     // // Logged IN user
     // else {
-    const userData = await User.findByPk(3, {attributes: { exclude: ['password'] }});
-    const userInfo = userData.map((usr) => usr.get({ plain: true }));
+    const userData = await User.findByPk(3, {attributes: {exclude: ['password']}});
+    const userInfo = userData.get({ plain: true });
+    console.log(userInfo);
     const petData = await Pet.findAll({
       where: { [Op.or]:[
         {species:userInfo.species},
         {hypoallergenic:userInfo.hypoallergenic},
         {kids_status:userInfo.kids_status}
-      ]}});
+      ]}}
+      );
     // }
     const pets = petData.map((pet) => pet.get({ plain: true }));
     //const pets_number = pets.length;
@@ -42,7 +44,7 @@ router.get('/pets', async (req, res) => {
       //loggedIn
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({error:err.message});
   }
 });
 
