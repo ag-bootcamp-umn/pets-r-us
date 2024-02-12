@@ -26,19 +26,13 @@ router.get('/pets', async (req, res) => {
     // // Logged IN user
     // else {
     const userData = await User.findByPk(3, {attributes: { exclude: ['password'] }});
-      // where:{$or [
-      //   {"user.species":"pet.species"},
-      //   {"user.hypoallergenic":"pet.hypoallergenic"},
-      //   {"user.kids_status":"user.kids_status"}
-      // ]} 
-    
+    const userInfo = userData.map((usr) => usr.get({ plain: true }));
     const petData = await Pet.findAll({
-      where:{ [
-        {species:"pet.species"},
-        {"user.hypoallergenic":"pet.hypoallergenic"},
-        {"user.kids_status":"user.kids_status"}
-      ]}
-  });
+      where: { or:[
+        {species:userInfo.species},
+        {hypoallergenic:userInfo.hypoallergenic},
+        {kids_status:userInfo.kids_status}
+      ]}});
     // }
     const pets = petData.map((pet) => pet.get({ plain: true }));
     //const pets_number = pets.length;
