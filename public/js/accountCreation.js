@@ -6,21 +6,35 @@ $(document).ready(function() {
     ];
     let currentQuestionIndex = 0;
 
+    let answers = {
+        species: null,
+        hypoallergenic: false,
+        kidsStatus: false
+    };
+
     function showQuestion(index) {
         const question = questions[index];
         $('#question-title').text(question.title);
         $('#question-text').text(question.text);
         $('.answer-button').remove();
-        question.answers.forEach(answer => {
+        question.answers.forEach((answer, answerIndex) => {
             $('<button>')
                 .addClass('btn btn-secondary px-5 m-2 answer-button')
                 .text(answer)
-                .click(() => answerQuestion(index))
+                .click(() => answerQuestion(index, answerIndex))
                 .appendTo('.button-container');
         });
     }
 
-    function answerQuestion(index) {
+    function answerQuestion(index, answerIndex) {
+        if (index === 0) {
+            answers.species = answerIndex + 1;
+        } else if (index === 1) {
+            answers.hypoallergenic = answerIndex === 0;
+        } else if (index === 2) {
+            answers.kidsStatus = answerIndex === 0;
+        }
+
         if (index < questions.length - 1) {
             showQuestion(index + 1);
         } else {
@@ -29,17 +43,24 @@ $(document).ready(function() {
     }
 
     function sendAnswersToServer() {
-        $.ajax({
-            url: '/api/users',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({answers: answers}),
-            success: function(response) {
-                window.location.href = "/user";
-            },
-            error: function(xhr, status, error) {
-                console.error("Error submitting answers:", status, error);
+        const userId = sessionStorage.getItem('userId') || 'null';
+
+        console.log('putting...', answers);
+
+        fetch(`/api/users/signup/${userId}`, { 
+            method: 'PUT',
+            body: JSON.stringify(answers),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log(`Answers successfully submitted to ${userId}`);
+            } else {
+                console.error('Failed to submit answers');
             }
+        })
+        .catch(error => {
+            console.error('Error submitting answers:', error);
         });
     }
 
