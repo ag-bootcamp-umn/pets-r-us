@@ -1,12 +1,10 @@
-"use strict";
-
 const appointmentForm = document.querySelector('.appointment-form');
 
 appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const appointmentDate = document.querySelector('#appointment-date').value;
-  console.log('apptDate:', appointmentDate);
-  const appointmentPost = {appointmentDate};
+  const date = document.querySelector('#appointment-date').value;
+  console.log('apptDate:', date);
+  const appointmentPost = {date};
   console.log('apptPost:', appointmentPost);
   
 const response = await fetch('/api/meet', {
