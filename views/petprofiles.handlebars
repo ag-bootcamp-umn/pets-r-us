@@ -1,10 +1,9 @@
 <div class="container-fluid pt-3 pb-3">
-  {{!-- {{#if loggedIn}}
+  {{#if loggedIn}}
   {{#if pets}}<h1>You've Matched {{{pets_number}}} Pets!</h1>
   {{else}}<h1>Sorry, You Haven't matched any of the Pets. &#128546;</h1>
   {{/if}}
-  {{/if}} --}}
-  {{!-- {{#if pets}} --}}
+  {{/if}}
   <div class="row">
     {{#each pets as |pet| }}
     <div class="col-6 col-md-4">
@@ -34,15 +33,14 @@
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            {{!-- {{#if loggedIn}} --}}
+            {{#if loggedIn}}
             <button type="button" class="btn btn-primary" href="/api/meet/{{pet.id}}">Schedule a visit with
               {{pet.name}}</button>
-              {{!-- {{/if}} --}}
+              {{/if}}
           </div>
         </div>
       </div>
     </div>
     {{/each}}
   </div>
-  {{!-- {{/if}} --}}
 </div>
