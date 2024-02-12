@@ -28,7 +28,7 @@ router.get('/pets', async (req, res) => {
     const userData = await User.findByPk(3, {attributes: { exclude: ['password'] }});
     const userInfo = userData.map((usr) => usr.get({ plain: true }));
     const petData = await Pet.findAll({
-      where: { or:[
+      where: { [Op.or]:[
         {species:userInfo.species},
         {hypoallergenic:userInfo.hypoallergenic},
         {kids_status:userInfo.kids_status}
