@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/pmm0jjd.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/custom.css"> 
-  </head>
+</head>
   
-  <body>
+<body>
     <div class="flex-column justify-space-around">
       <header class="d-flex align-center p-2 justify-content-between">
         <h1 class="hover-click">
@@ -18,6 +18,7 @@
           </a>
         </h1>
         <div class="d-flex align-items-center left-border">
+          {{#unless loggedIn}}
           <h2 class="hover-click">
             <a class="logo" href="/signup">
               <span class="p-2 mx-3">Sign Up</span>
@@ -28,6 +29,13 @@
               <span class="p-2 mx-3">Sign In</span>
             </a>
           </h2>
+          {{else}}
+          <h2 class="hover-click">
+            <a class="logo" href="/signout">
+              <span class="p-2 mx-3">Sign Out</span>
+            </a>
+          </h2>
+          {{/unless}}
         </div>
       </header>
     </div>
@@ -38,8 +46,8 @@
       </h2>
       <h3>Copyright © 2024 PetsRUs is a fictional (501)(c)(3) charity organization</h3>
     </footer>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   
-    </body>
+</body>
   
-  </html>
+</html>

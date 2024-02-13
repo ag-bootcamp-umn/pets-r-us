@@ -23,7 +23,7 @@ const initAcc = async (event) => {
                 document.location.replace('/new-login');
             } else {
                 console.error('Ruh roh!  No user ID, Raggy.');
-                document.location.replace('/new-login');
+                document.location.replace('/signup');
             }
         } else {
             alert('Failed to initialize account. ' + (data.message || ''));
