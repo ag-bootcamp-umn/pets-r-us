@@ -8,7 +8,7 @@ const bookAppointment = async () => {
   const appointmentPost = {
     date,
     pet_id: pet.id,
-    
+    user_id: sessionStorage.userId
   };
   console.log('apptPost:', appointmentPost);
   
@@ -31,3 +31,5 @@ appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   bookAppointment();
 });
+
+console.log(sessionStorage.userId);
