@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const dayjs = require('dayjs');
-const { Pet } = require('../models');
 const withAuth = require('../utils/auth');
 const {User, Pet} = require("../models")
 
@@ -12,10 +11,10 @@ router.get('/meet', (req, res) => {
   res.render('appointment');
 })
 
-router.get('/meet/1', async (req, res) => {
+router.get('/meet/:pet_id', async (req, res) => {
   try {
     const now = dayjs().format('YYYY-MM-DD');
-    const petData = await Pet.findByPk(1);
+    const petData = await Pet.findByPk(req.params.pet_id);
     const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
       now, pet,
@@ -77,6 +76,10 @@ router.get('/signin',(req, res) => {
 
 router.get('/new-login',(req, res) => {
   res.render('new-login');
+});
+
+router.get('/success',(req, res) => {
+  res.render('success');
 });
 
 module.exports = router;

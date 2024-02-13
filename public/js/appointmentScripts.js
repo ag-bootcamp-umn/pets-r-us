@@ -15,6 +15,7 @@ const response = await fetch('/api/meet', {
   })
   if (response.ok) {
     console.log('OK!!!')
+    document.location.replace('/success');
   } else {
     console.log('No Dice.')
   }

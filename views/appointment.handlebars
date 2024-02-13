@@ -1,6 +1,8 @@
+<main>
 <div class="text-center">
   <h2>Book an Appointment</h2>
-  <p>Please select a date to meet .</p>
+  <p>Please select a date to meet <h4>{{pet.name}}</h4>.</p>
+  <img src="{{pet.photo}}" alt="A beautifil photo of {{pet.name}}">
 </div>
 <div class="text-center">
   <form class="appointment-form">
@@ -11,5 +13,6 @@
   </form>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="./js/appointmentScripts.js"></script>
+</main>
+
+<script src="/js/appointmentScripts.js"></script>
