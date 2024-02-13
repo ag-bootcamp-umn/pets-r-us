@@ -58,7 +58,7 @@ router.get('/pets', async (req, res) => {
     res.render('petprofiles', { 
       pets_number,
       pets, 
-      loggedIn: req.session.loggedIn
+      loggedIn
     });
   } catch (err) {
     res.status(500).json({error:err.message});
