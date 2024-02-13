@@ -25,12 +25,15 @@ User.init(
     },
     species: {
       type: DataTypes.INTEGER,
+      defaultValue:1
     },
     hypoallergenic: {
       type: DataTypes.BOOLEAN,
+      defaultValue:false
     },
     kids_status: {
       type: DataTypes.BOOLEAN,
+      defaultValue:true
     },
     email: {
       type: DataTypes.STRING,
