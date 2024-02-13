@@ -25,3 +25,16 @@ appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   bookAppointment();
 });
+
+const currentUrl = window.location.href;
+const getResData = async () => {
+  const resData = await fetch(currentUrl);
+  console.log(resData);
+}
+
+// getResData();
+
+// fetch(currentUrl)
+// .then(response => response.json())
+//     .then(data => console.log(data))
+// .catch(err => console.log(err));
