@@ -1,13 +1,46 @@
-<h1>Pets You've Matched {{{pets_number}}}</h1>
-{{#each projects as |project| }}
-<div class="row">
-  <div class="col-6 col-md-4">
-    <h2>
-      {{{pets_photo}}}
-      {{!-- picture referance ie --}}
-      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
-      {{{pets_name}}}
-    </h2>
+<div class="container-fluid pt-3 pb-3">
+  {{#if loggedIn}}
+  {{#if pets}}<h1>You've Matched {{{pets_number}}} Pets!</h1>
+  {{else}}<h1>Sorry, You Haven't matched any of the Pets. &#128546;</h1>
+  {{/if}}
+  {{/if}}
+  <div class="row">
+    {{#each pets as |pet| }}
+    <div class="col-6 col-md-4">
+      <h2>
+        <div class="card">
+          <img src="{{pet.photo}}" alt="{{pet.name}}">
+          <div class="card-body text-center">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#petModal{{pet.id}}">{{pet.name}}</a>
+          </div>
+        </div>
+      </h2>
+    </div>
+    <div class="modal fade" id="petModal{{pet.id}}" tabindex="-1" aria-labelledby="petModal{{pet.id}}Label"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="petModal{{pet.id}}Label">{{pet.name}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <img src="{{{pet.photo}}}" alt="{{pet.name}}">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {{#if loggedIn}}
+            <button type="button" class="btn btn-primary" href="/api/meet/{{pet.id}}">Schedule a visit with
+              {{pet.name}}</button>
+              {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
   </div>
 </div>
-{{/each}}
