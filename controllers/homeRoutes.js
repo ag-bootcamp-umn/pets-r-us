@@ -7,16 +7,21 @@ router.get('/', (req, res) => {
   res.render('home')
 });
 
-router.get('/meet/:pet_id', async (req, res) => {
+router.get('/meet', (req, res) => {
+  res.render('appointment');
+})
+
+router.get('/meet/1', async (req, res) => {
   try {
     const now = dayjs().format('YYYY-MM-DD');
-    const petData = await Pet.findByPk(req.params.pet_id);
+    const petData = await Pet.findByPk(1);
     const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
       now, pet,
       // logged_in: req.session.logged_in
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
