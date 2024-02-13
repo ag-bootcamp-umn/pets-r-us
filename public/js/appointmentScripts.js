@@ -1,9 +1,15 @@
 const appointmentForm = document.querySelector('.appointment-form');
+console.log("Current date:", now);
+console.log("Pet data:", pet);
 
 const bookAppointment = async () => {
   const date = document.querySelector('#appointment-date').value;
   console.log('apptDate:', date);
-  const appointmentPost = {date};
+  const appointmentPost = {
+    date,
+    pet_id: pet.id,
+    
+  };
   console.log('apptPost:', appointmentPost);
   
 const response = await fetch('/api/meet', {
@@ -24,23 +30,4 @@ const response = await fetch('/api/meet', {
 appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   bookAppointment();
-<<<<<<< HEAD
 });
-
-const currentUrl = window.location.href;
-const getResData = async () => {
-  const resData = await fetch(currentUrl);
-  console.log(resData);
-}
-
-// getResData();
-
-// fetch(currentUrl)
-// .then(response => response.json())
-//     .then(data => console.log(data))
-// .catch(err => console.log(err));
-console.log("Current date:", now);
-console.log("Pet data:", pet);
-=======
-});
->>>>>>> main
