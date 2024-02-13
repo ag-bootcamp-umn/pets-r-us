@@ -6,7 +6,7 @@
 </div>
 <div class="text-center">
   <form class="appointment-form">
-<input type="date" id="appointment-date" value="" min="2024-02-01" max="2030-12-31" />
+<input type="date" id="appointment-date" value="{{now}}" min="2024-02-01" max="2030-12-31" />
   <p>
     <button class="btn btn-primary" type="submit">Submit</button>
   </p>
@@ -15,4 +15,8 @@
 </div>
 </main>
 
+  <script>
+    const now = "{{now}}";
+    const pet = {{{render_json pet}}};
+  </script>
 <script src="/js/appointmentScripts.js"></script>
