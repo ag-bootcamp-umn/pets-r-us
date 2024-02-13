@@ -29,7 +29,7 @@ User.init(
     hypoallergenic: {
       type: DataTypes.BOOLEAN,
     },
-    kidsStatus: {
+    kids_status: {
       type: DataTypes.BOOLEAN,
     },
     email: {

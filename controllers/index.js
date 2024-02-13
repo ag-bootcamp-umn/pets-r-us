@@ -7,7 +7,7 @@ router.use('/api', apiRoutes);
 
 router.use('/', homeRoutes);
 
-router.all('*', (req, res) => {
+router.use('*', (req, res) => {
     res.render('404');
   });
 
