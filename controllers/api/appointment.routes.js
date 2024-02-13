@@ -5,11 +5,10 @@ const { Appointment } = require('../../models');
 router.post('/', async (req, res) => {
   console.log(req.body);
   try {
-    console.log(req.body);
-    res.json({
-      msg: 'You did it!'
-    })
-  } catch {
+    console.log('ok:', req.body);
+    const appointment = await Appointment.create(req.body)
+    res.json(appointment);
+  } catch (err) {
     res.status(500).json(err);
   }
 });
