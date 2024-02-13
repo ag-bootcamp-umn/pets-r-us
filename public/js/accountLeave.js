@@ -2,6 +2,8 @@ let timer = 5;
 
 const intervalId = setInterval(() => {
     $('#timer').text(timer);
+
+    console.log(timer);
     timer -= 1;
     
     if (timer < 0) {
@@ -11,6 +13,7 @@ const intervalId = setInterval(() => {
     }
 }, 1000);
 
+
 const logout = async () => {
     const response = await fetch('/api/users/logout', {
       method: 'POST',
@@ -19,6 +22,7 @@ const logout = async () => {
   
     if (response.ok) {
         console.log("You've been signed out successfully.")
+
     } else {
       alert('You are not signed in.');
     }
