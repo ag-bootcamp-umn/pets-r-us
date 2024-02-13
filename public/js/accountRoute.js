@@ -17,13 +17,14 @@ const loadAcc = async (event) => {
         const data = await response.json();
 
         if (response.ok) {
-            if (data.userId) {
-                sessionStorage.setItem('userId', data.userId);
-                console.log('User ID stored in session storage:', data.userId);
+            if (data.user && data.user.id) {
+                sessionStorage.setItem('userId', data.user.id);
+                console.log('User ID stored in session storage:', data.user.id);
                 document.location.replace('/user');
             } else {
                 console.error('Ruh roh!  Wrong email or password, Raggy.');
             }
+            
         } else {
             alert('Failed to route account. ' + (data.message || ''));
         }
