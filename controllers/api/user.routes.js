@@ -51,7 +51,6 @@ router.put('/signup/:id', async (req, res) => {
   }
 });
 
-
 // Login
 router.post('/login', async (req, res) => {
   try {
@@ -64,7 +63,8 @@ router.post('/login', async (req, res) => {
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Ruh Roh!  Wrong email or password, Raggy.' });
+        .json({ message: 'Ruh Roh!  Wrong email, Raggy.' });
+        console.log('Email error.');
       return;
     }
 
@@ -73,7 +73,8 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Ruh Roh!  Wrong email or password, Raggy.' });
+        .json({ message: 'Ruh Roh!  Wrong password, Raggy.' });
+        console.log('Password error.');
       return;
     }
 
@@ -87,6 +88,7 @@ router.post('/login', async (req, res) => {
       res
         .status(200)
         .json({ user: dbUserData, message: 'You are now logged in!' });
+        console.log('Success!');
     });
   } catch (err) {
     console.log(err);

@@ -8,7 +8,9 @@ router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
 
 router.use('*', (req, res) => {
-    res.render('404');
+    res.render('404', {
+      loggedIn: req.session.loggedIn
+    });
   });
 
 module.exports = router;

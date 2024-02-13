@@ -1,11 +1,15 @@
 <main>
+<main>
 <div class="text-center">
   <h2>Book an Appointment</h2>
+  <p>Please select a date to meet <h4>{{pet.name}}</h4>.</p>
+  <img src="{{pet.photo}}" alt="A beautifil photo of {{pet.name}}">
   <p>Please select a date to meet <h4>{{pet.name}}</h4>.</p>
   <img src="{{pet.photo}}" alt="A beautifil photo of {{pet.name}}">
 </div>
 <div class="text-center">
   <form class="appointment-form">
+<input type="date" id="appointment-date" value="" min="2024-02-01" max="2030-12-31" />
 <input type="date" id="appointment-date" value="" min="2024-02-01" max="2030-12-31" />
   <p>
     <button class="btn btn-primary" type="submit">Submit</button>

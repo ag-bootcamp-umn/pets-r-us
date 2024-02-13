@@ -24,6 +24,7 @@ const response = await fetch('/api/meet', {
 appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   bookAppointment();
+<<<<<<< HEAD
 });
 
 const currentUrl = window.location.href;
@@ -40,3 +41,6 @@ const getResData = async () => {
 // .catch(err => console.log(err));
 console.log("Current date:", now);
 console.log("Pet data:", pet);
+=======
+});
+>>>>>>> main
