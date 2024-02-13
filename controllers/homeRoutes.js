@@ -4,11 +4,15 @@ const withAuth = require('../utils/auth');
 const {User, Pet} = require("../models")
 
 router.get('/', (req, res) => {
-  res.render('home')
+  res.render('home', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/meet', (req, res) => {
-  res.render('appointment');
+  res.render('appointment', {
+    loggedIn: req.session.loggedIn
+  });
 })
 
 router.get('/meet/:pet_id', async (req, res) => {
@@ -17,8 +21,7 @@ router.get('/meet/:pet_id', async (req, res) => {
     const petData = await Pet.findByPk(req.params.pet_id);
     const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
-      now, pet,
-      // logged_in: req.session.logged_in
+      now, pet, loggedIn: req.session.loggedIn
     });
   } catch (err) {
     console.log(err)
@@ -55,7 +58,7 @@ router.get('/pets', async (req, res) => {
     res.render('petprofiles', { 
       pets_number,
       pets, 
-      loggedIn
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json({error:err.message});
@@ -63,23 +66,39 @@ router.get('/pets', async (req, res) => {
 });
 
 router.get('/user', (req, res) => {
-  res.render('profile');
+  res.render('profile', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/signup',(req, res) => {
-  res.render('signup');
+  res.render('signup', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/signin',(req, res) => {
-  res.render('signin');
+  res.render('signin', {
+    loggedIn: req.session.loggedIn
+  });
+});
+
+router.get('/signout',(req, res) => {
+  res.render('signout', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/new-login',(req, res) => {
-  res.render('new-login');
+  res.render('new-login', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/success',(req, res) => {
-  res.render('success');
+  res.render('success', {
+    loggedIn: req.session.loggedIn
+  });
 });
 
 module.exports = router;
