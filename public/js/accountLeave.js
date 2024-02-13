@@ -2,6 +2,8 @@ let timer = 5;
 
 const intervalId = setInterval(() => {
     $('#timer').text(timer);
+
+    console.log(timer);
     timer -= 1;
     
     if (timer < 0) {
