@@ -3,12 +3,6 @@ const dayjs = require('dayjs');
 const withAuth = require('../utils/auth');
 const {User, Pet, Appointment} = require("../models")
 
-router.get('/', (req, res) => {
-  res.render('home', {
-    loggedIn: req.session.loggedIn
-  });
-});
-
 router.get('/meet', (req, res) => {
   res.render('appointment', {
     loggedIn: req.session.loggedIn
@@ -178,7 +172,6 @@ router.get('/success', async (req, res) => {
         user_id: user_id,
       },
       include: [Pet],
-      order: [ [ 'createdAt', 'DESC' ]]
     });
     console.log('apptData:', apptData);
     if (!apptData) {
