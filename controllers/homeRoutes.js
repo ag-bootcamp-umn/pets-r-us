@@ -16,6 +16,10 @@ router.get('/meet', (req, res) => {
 })
 
 router.get('/meet/:pet_id', async (req, res) => {
+  const user_id = req.session.userId;
+  if (!user_id) {
+    return res.redirect('/signin');
+  }
   try {
     const now = dayjs().format('YYYY-MM-DD');
     const petData = await Pet.findByPk(req.params.pet_id);
@@ -112,6 +116,7 @@ router.get('/success', async (req, res) => {
       where: {
         user_id: user_id,
       },
+      include: [Pet]
     });
     // console.log('apptData:', apptData);
     if (!apptData) {
@@ -122,6 +127,7 @@ router.get('/success', async (req, res) => {
     }
 
     const appt = apptData.get({ plain: true});
+    appt.date = new Date(appt.date).toDateString();
     res.render('success', {
       appt, loggedIn: req.session.loggedIn
     })
