@@ -13,6 +13,7 @@ const intervalId = setInterval(() => {
     }
 }, 1000);
 
+
 const logout = async () => {
     const response = await fetch('/api/users/logout', {
       method: 'POST',
@@ -21,6 +22,7 @@ const logout = async () => {
   
     if (response.ok) {
         console.log("You've been signed out successfully.")
+
     } else {
       alert('You are not signed in.');
     }

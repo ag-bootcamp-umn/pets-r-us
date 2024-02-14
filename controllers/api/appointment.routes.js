@@ -13,4 +13,22 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/:user_id', async (req, res) => {
+  try {
+    const userAppointments = await Appointment.findAll({
+      where: {
+        userId: req.params.user_id
+      }
+    });
+
+    if (userAppointments.length > 0) {
+      res.json(userAppointments);
+    } else {
+      res.status(404).json({ message: 'No appointments found for the given user ID' });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
