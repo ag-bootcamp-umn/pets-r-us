@@ -46,15 +46,12 @@ router.get('/user', async (req, res) => {
       }).catch(err => console.log(err));
 
       if (appointments) {
-        // Convert appointments to plain objects
         appointments = appointments.map(appointment => appointment.get({ plain: true }));
-        // Fetch pet names for each appointment
         for (let appointment of appointments) {
           const pet = await Pet.findByPk(appointment.pet_id, {
             attributes: ['name']
           }).catch(err => console.log(err));
           if (pet) {
-            // Add pet name to the appointment object
             appointment.petName = pet.name;
           }
         }

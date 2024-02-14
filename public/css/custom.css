@@ -71,6 +71,10 @@ h3 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.dash-box {
+  width: 80%;
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -180,4 +184,14 @@ h3 {
 
 .button-container {
   width: 500px;
+}
+
+.pfp-container {
+  overflow: hidden;
+  text-align: center;
+}
+
+.pfp-container img {
+  width: 250px;
+  border-radius: 100%;
 }
