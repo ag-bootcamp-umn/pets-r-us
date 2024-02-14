@@ -114,7 +114,20 @@ router.get('/pets', async (req, res) => {
     else {
     const userData = await User.findByPk(req.session.userId, {attributes: {exclude: ['password']}});
     const userInfo = userData.get({ plain: true });
-    
+    // user prefs
+    // if species = 5 or null show all 
+    // if hypoallergneic is false or null
+    // if kids = false or null
+
+    if (userInfo.species === null || userInfo.species === 5) {
+      if ((!(userInfo.hypoallergenic)) || userInfo.hypoallergenic === null) {
+        if ((!(userInfo.kids_status)) || userInfo.kids_status === null) {
+          petData = await Pet.findAll();
+        }
+      }
+      else {}
+    }
+    else  {}
     petData = await Pet.findAll({
       where: [
         {species:userInfo.species},
