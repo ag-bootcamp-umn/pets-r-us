@@ -13,7 +13,7 @@
     <div class="flex-column justify-space-around">
       <header class="d-flex align-center p-2 justify-content-between">
         <h1 class="hover-click">
-          <a class="logo" href="/">
+          <a class="logo" href="{{#unless loggedIn}}/{{else}}/pets{{/unless}}">
             <span class="p-2">Pets<span class="red">R</span>Us</span>
           </a>
         </h1>
