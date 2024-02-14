@@ -40,47 +40,76 @@ router.get('/meet/:pet_id', async (req, res) => {
   }
 });
 
-router.get('/pets', async (req, res) => {
-  
-  try {
-    const loggedIn = (req.session.loggedIn)? req.session.loggedIn : false;
-    let petData;
+router.get('/user', async (req, res) => {
+  const loggedIn = req.session.loggedIn || false;
+  let userInfo = {};
+  let appointments = [];
+  let speciesPreference;
 
-    // non-logged in user
-    if (!loggedIn) {
-    petData = await Pet.findAll();
-    const pets = petData.map((pet) => pet.get({ plain: true }));
-    }
-
-    // Logged IN user
-    else {
-    const userData = await User.findByPk(req.session.userId, {attributes: {exclude: ['password']}});
-    const userInfo = userData.get({ plain: true });
-    
-    petData = await Pet.findAll({
-      where: [
-        {species:userInfo.species},
-        {hypoallergenic:userInfo.hypoallergenic},
-        {kids_status:userInfo.kids_status}
-      ]});
-    }
-    const pets = petData.map((pet) => pet.get({ plain: true }));
-    const pets_number = pets.length;
-    res.render('petprofiles', { 
-      pets_number,
-      pets, 
-      loggedIn
+  if (loggedIn) {
+    const userData = await User.findByPk(req.session.userId, {
+      attributes: { exclude: ['password'] }
     });
-  } catch (err) {
-    res.status(500).json({error:err.message});
-  }
-});
 
-router.get('/user', (req, res) => {
+    if (userData) {
+      userInfo = userData.get({ plain: true });
+
+      const rawAppointments = await Appointment.findAll({
+        where: { user_id: req.session.userId },
+        include: [{
+          model: Pet,
+          as: 'Pet',
+          attributes: ['name']
+        }]
+      }).catch(err => console.log(err));
+
+      if (rawAppointments) {
+        appointments = rawAppointments.map(appointment => {
+          const appointmentData = appointment.get({ plain: true });
+          const petName = appointmentData.Pet ? appointmentData.Pet.name : 'Unknown';
+          return {
+            ...appointmentData,
+            petName,
+          };
+        });
+      }
+    }
+  }
+
+  const speciesPreferencesMap = {
+    1: "Dogs",
+    2: "Cats",
+    3: "Birds",
+    4: "Rodents",
+    5: "All"
+  };
+  speciesPreference = speciesPreferencesMap[userInfo.species] || "All";
+
+  const allergyMap = {
+    true: "Hypoallergenic Only",
+    false: "No Allergies"
+  };
+  const allergyPreference = allergyMap[userInfo.hypoallergenic] || "No Allergies";
+
+  const kidsMap = {
+    true: "Yes",
+    false: "No"
+  };
+  const kidsPreference = kidsMap[userInfo.kids_status] || "No";
+
   res.render('profile', {
-    loggedIn: req.session.loggedIn
+    userId: req.session.userId,
+    email: userInfo.email || '',
+    appointments: appointments || null,
+    species_preference: speciesPreference || 'None',
+    allergy_preference: allergyPreference || 'None',
+    kids_preference: kidsPreference || 'None',
+    loggedIn
   });
 });
+
+
+
 
 router.get('/signup',(req, res) => {
   res.render('signup', {
