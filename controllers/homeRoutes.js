@@ -108,9 +108,6 @@ router.get('/user', async (req, res) => {
   });
 });
 
-
-
-
 router.get('/signup',(req, res) => {
   res.render('signup', {
     loggedIn: req.session.loggedIn
@@ -147,7 +144,7 @@ router.get('/success', async (req, res) => {
       },
       include: [Pet]
     });
-    // console.log('apptData:', apptData);
+    console.log('apptData:', apptData);
     if (!apptData) {
       console.log('No Go');
       return res.render('404', {
@@ -156,7 +153,10 @@ router.get('/success', async (req, res) => {
     }
 
     const appt = apptData.get({ plain: true});
+    // console.log('appt 1:', appt);
+    console.log('appt.date', appt.date)
     appt.date = new Date(appt.date).toDateString();
+    console.log('appt 2:', appt);
     res.render('success', {
       appt, loggedIn: req.session.loggedIn
     })
