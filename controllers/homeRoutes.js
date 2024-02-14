@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const dayjs = require('dayjs');
 const withAuth = require('../utils/auth');
-const {User, Pet} = require("../models")
+const {User, Pet, Appointment} = require("../models")
 
 router.get('/', (req, res) => {
   res.render('home', {
@@ -19,7 +19,14 @@ router.get('/meet/:pet_id', async (req, res) => {
   try {
     const now = dayjs().format('YYYY-MM-DD');
     const petData = await Pet.findByPk(req.params.pet_id);
-    const pet = petData ? petData.get({ plain: true }) : null;
+    if (!petData) {
+      console.log('No Dice');
+      return res.render('404', {
+        loggedIn: req.session.loggedIn
+      })
+    }
+    const pet = petData.get({ plain: true });
+    // const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
       now, pet, loggedIn: req.session.loggedIn
     });
@@ -95,10 +102,34 @@ router.get('/new-login',(req, res) => {
   });
 });
 
-router.get('/success',(req, res) => {
-  res.render('success', {
-    loggedIn: req.session.loggedIn
-  });
+router.get('/success', async (req, res) => {
+  const user_id = req.session.userId;
+  if (!user_id) {
+    return res.redirect('/signin');
+  }
+  try {
+    const apptData = await Appointment.findOne({
+      where: {
+        user_id: user_id,
+      },
+    });
+    // console.log('apptData:', apptData);
+    if (!apptData) {
+      console.log('No Go');
+      return res.render('404', {
+        loggedIn: req.session.loggedIn
+      })
+    }
+
+    const appt = apptData.get({ plain: true});
+    res.render('success', {
+      appt, loggedIn: req.session.loggedIn
+    })
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

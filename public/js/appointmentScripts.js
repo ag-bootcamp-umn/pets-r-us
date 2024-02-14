@@ -8,7 +8,7 @@ const bookAppointment = async () => {
   const appointmentPost = {
     date,
     pet_id: pet.id,
-    user_id: sessionStorage.userId
+    // user_id: sessionStorage.userId
   };
   console.log('apptPost:', appointmentPost);
   
