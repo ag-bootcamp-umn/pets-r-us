@@ -1,9 +1,15 @@
 const appointmentForm = document.querySelector('.appointment-form');
+console.log("Current date:", now);
+console.log("Pet data:", pet);
 
 const bookAppointment = async () => {
   const date = document.querySelector('#appointment-date').value;
   console.log('apptDate:', date);
-  const appointmentPost = {date};
+  const appointmentPost = {
+    date,
+    pet_id: pet.id,
+    user_id: sessionStorage.userId
+  };
   console.log('apptPost:', appointmentPost);
   
 const response = await fetch('/api/meet', {
@@ -25,3 +31,5 @@ appointmentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   bookAppointment();
 });
+
+console.log(sessionStorage.userId);
