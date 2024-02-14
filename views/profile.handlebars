@@ -1,23 +1,30 @@
-    <main class="container-fluid px-0" style="overflow: hidden;">
-      <div>
-        <div class="col-auto mx-2 my-5">
-        <h2>Welcome, {{name}}!</h2>
-        <h3>Appointments:</h3>
-    
-        {{#if appoinments.length}}
-        <h3>Upcoming Appointments:</h3>
-        {{!--
-        NEED TO CONNECT SELECTED APPOINMENT DATES
-    
-        {{#each projects as |project|}}
-        <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
-              <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
-          {{/each}} --}}
-        {{/if}}
-        <h3>Preferences</h3>
-        <a href="/submit-your-login-form">Want to change your preferences?  Click here.</a>
-      </div>
-    
-    </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="./js/accountLoad.js"></script>
+
+<main class="container-fluid px-0" style="overflow: hidden;">
+  <div>
+    <div class="col-auto mx-2 my-5">
+      <h2>Welcome to PetsRUS!</h2>
+      <h3>Signed in as: {{email}}</h3>
+      </br>
+      <h3>Appointments:</h3>
+      <ul>
+      {{#if appointments}}
+        {{#each appointments}}
+          <li>Appointment on {{this.date}} with {{this.petName}}</li>
+        {{/each}}
+      {{else}}
+        <li><span>You don't have any upcoming appointments. Schedule one <a href="/pets">here.</a></span></li>
+      {{/if}}
+      </ul>
+      </br>
+      <h3>Preferences</h3>
+      <ul>
+        <li>Species: {{species_preference}}</li>
+        <li>Hypoallergenic: {{allergy_preference}}</li>
+        <li>Good with Kids: {{kids_preference}}</li>
+      </ul>
+      <a href="/new-login">Want to change your preferences? Click here.</a>
+    </div>
+  </div>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="./js/accountLoad.js"></script>
