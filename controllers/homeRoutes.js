@@ -179,7 +179,8 @@ router.get('/success', async (req, res) => {
       where: {
         user_id: user_id,
       },
-      include: [Pet]
+      include: [Pet],
+      order: [ [ 'createdAt', 'DESC' ]]
     });
     console.log('apptData:', apptData);
     if (!apptData) {
@@ -192,7 +193,7 @@ router.get('/success', async (req, res) => {
     const appt = apptData.get({ plain: true});
     // console.log('appt 1:', appt);
     console.log('appt.date', appt.date)
-    appt.date = new Date(appt.date).toDateString();
+    appt.date = appt.date.toDateString();
     console.log('appt 2:', appt);
     res.render('success', {
       appt, loggedIn: req.session.loggedIn
