@@ -32,8 +32,7 @@ router.get('/meet/:pet_id', async (req, res) => {
 router.get('/user', async (req, res) => {
   const loggedIn = req.session.loggedIn || false;
   let userInfo = {};
-  let appointments = [];
-  let speciesPreference;
+  let appointments = null;
 
   if (loggedIn) {
     const userData = await User.findByPk(req.session.userId, {
@@ -42,25 +41,23 @@ router.get('/user', async (req, res) => {
 
     if (userData) {
       userInfo = userData.get({ plain: true });
-
-      const rawAppointments = await Appointment.findAll({
-        where: { user_id: req.session.userId },
-        include: [{
-          model: Pet,
-          as: 'Pet',
-          attributes: ['name']
-        }]
+      appointments = await Appointment.findAll({
+        where: { userId: req.session.userId }
       }).catch(err => console.log(err));
 
-      if (rawAppointments) {
-        appointments = rawAppointments.map(appointment => {
-          const appointmentData = appointment.get({ plain: true });
-          const petName = appointmentData.Pet ? appointmentData.Pet.name : 'Unknown';
-          return {
-            ...appointmentData,
-            petName,
-          };
-        });
+      if (appointments) {
+        // Convert appointments to plain objects
+        appointments = appointments.map(appointment => appointment.get({ plain: true }));
+        // Fetch pet names for each appointment
+        for (let appointment of appointments) {
+          const pet = await Pet.findByPk(appointment.pet_id, {
+            attributes: ['name']
+          }).catch(err => console.log(err));
+          if (pet) {
+            // Add pet name to the appointment object
+            appointment.petName = pet.name;
+          }
+        }
       }
     }
   }
@@ -72,7 +69,7 @@ router.get('/user', async (req, res) => {
     4: "Rodents",
     5: "All"
   };
-  speciesPreference = speciesPreferencesMap[userInfo.species] || "All";
+  const speciesPreference = speciesPreferencesMap[userInfo.speciesPreference] || "All";
 
   const allergyMap = {
     true: "Hypoallergenic Only",
@@ -89,13 +86,14 @@ router.get('/user', async (req, res) => {
   res.render('profile', {
     userId: req.session.userId,
     email: userInfo.email || '',
-    appointments: appointments || null,
+    appointments: appointments || [],
     species_preference: speciesPreference || 'None',
     allergy_preference: allergyPreference || 'None',
     kids_preference: kidsPreference || 'None',
     loggedIn
   });
 });
+
 
 
 router.get('/pets', async (req, res) => {
