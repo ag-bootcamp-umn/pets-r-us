@@ -32,8 +32,7 @@ router.get('/meet/:pet_id', async (req, res) => {
 router.get('/user', async (req, res) => {
   const loggedIn = req.session.loggedIn || false;
   let userInfo = {};
-  let appointments = [];
-  let speciesPreference;
+  let appointments = null;
 
   if (loggedIn) {
     const userData = await User.findByPk(req.session.userId, {
@@ -42,25 +41,20 @@ router.get('/user', async (req, res) => {
 
     if (userData) {
       userInfo = userData.get({ plain: true });
-
-      const rawAppointments = await Appointment.findAll({
-        where: { user_id: req.session.userId },
-        include: [{
-          model: Pet,
-          as: 'Pet',
-          attributes: ['name']
-        }]
+      appointments = await Appointment.findAll({
+        where: { userId: req.session.userId }
       }).catch(err => console.log(err));
 
-      if (rawAppointments) {
-        appointments = rawAppointments.map(appointment => {
-          const appointmentData = appointment.get({ plain: true });
-          const petName = appointmentData.Pet ? appointmentData.Pet.name : 'Unknown';
-          return {
-            ...appointmentData,
-            petName,
-          };
-        });
+      if (appointments) {
+        appointments = appointments.map(appointment => appointment.get({ plain: true }));
+        for (let appointment of appointments) {
+          const pet = await Pet.findByPk(appointment.pet_id, {
+            attributes: ['name']
+          }).catch(err => console.log(err));
+          if (pet) {
+            appointment.petName = pet.name;
+          }
+        }
       }
     }
   }
@@ -72,7 +66,7 @@ router.get('/user', async (req, res) => {
     4: "Rodents",
     5: "All"
   };
-  speciesPreference = speciesPreferencesMap[userInfo.species] || "All";
+  const speciesPreference = speciesPreferencesMap[userInfo.speciesPreference] || "All";
 
   const allergyMap = {
     true: "Hypoallergenic Only",
@@ -89,13 +83,14 @@ router.get('/user', async (req, res) => {
   res.render('profile', {
     userId: req.session.userId,
     email: userInfo.email || '',
-    appointments: appointments || null,
+    appointments: appointments || [],
     species_preference: speciesPreference || 'None',
     allergy_preference: allergyPreference || 'None',
     kids_preference: kidsPreference || 'None',
     loggedIn
   });
 });
+
 
 
 router.get('/pets', async (req, res) => {
@@ -115,12 +110,83 @@ router.get('/pets', async (req, res) => {
     const userData = await User.findByPk(req.session.userId, {attributes: {exclude: ['password']}});
     const userInfo = userData.get({ plain: true });
     
-    petData = await Pet.findAll({
-      where: [
-        {species:userInfo.species},
-        {hypoallergenic:userInfo.hypoallergenic},
-        {kids_status:userInfo.kids_status}
-      ]});
+    if ((userInfo.species === null || userInfo.species === 5) && 
+      ((!(userInfo.hypoallergenic)) || userInfo.hypoallergenic === null) &&
+      ((!(userInfo.kids_status)) || userInfo.kids_status === null)) {
+        petData = await Pet.findAll();
+      }
+      //species = not 5
+      //hypoalergneic = true
+      //kids=true
+      else if ((userInfo.species !== 5 && userInfo.species !== null) && 
+      userInfo.hypoallergenic && userInfo.kids_status) {
+        petData = await Pet.findAll({
+          where: [
+            {species:userInfo.species},
+            {hypoallergenic:userInfo.hypoallergenic},
+            {kids_status:userInfo.kids_status}
+          ]});
+      }
+      //species = 5
+      //hypoalergneic = true
+      //kids=false
+      else if ((userInfo.species === null || userInfo.species === 5) &&
+      userInfo.hypoallergenic && ((!(userInfo.kids_status)) || 
+      userInfo.kids_status === null)){
+        petData = await Pet.findAll({
+          where: [{hypoallergenic:userInfo.hypoallergenic}]});
+      }
+      //species = 5
+      //hypoalergneic = false
+      //kids=true
+      else if ((userInfo.species === null || userInfo.species === 5) &&
+      ((!(userInfo.hypoallergenic)) || userInfo.hypoallergenic === null) && 
+      userInfo.kids_status) {
+        petData = await Pet.findAll({
+          where: [{kids_status:userInfo.kids_status}]});
+      }
+      //species = not 5
+      //hypoalergneic = true
+      //kids=false
+      else if ((userInfo.species !== 5 && userInfo.species !== null) &&
+      userInfo.hypoallergenic && ((!(userInfo.kids_status)) || 
+      userInfo.kids_status === null)) {
+        petData = await Pet.findAll({
+          where: [
+            {species:userInfo.species},
+            {hypoallergenic:userInfo.hypoallergenic}]});
+      }
+      //species = not 5
+      //hypoalergneic = false
+      //kids=true
+      else if ((userInfo.species !== 5 && userInfo.species !== null) &&
+        ((!(userInfo.hypoallergenic)) || userInfo.hypoallergenic === null) 
+        && userInfo.kids_status) {
+        petData = await Pet.findAll({
+          where: [
+            {species:userInfo.species},
+            {kids_status:userInfo.kids_status}]});
+      }
+      //species = not 5
+      //hypoalergneic = false
+      //kids=false
+      else if ((userInfo.species !== 5 && userInfo.species !== null) &&
+        ((!(userInfo.hypoallergenic)) || userInfo.hypoallergenic === null) 
+        && ((!(userInfo.kids_status)) || userInfo.kids_status === null)) {
+        petData = await Pet.findAll({
+          where: [
+            {species:userInfo.species}]});
+      }
+      //species = 5
+      //hypoalergneic = true
+      //kids=true
+      else if ((userInfo.species === null || userInfo.species === 5) &&
+        userInfo.hypoallergenic && userInfo.kids_status) {
+        petData = await Pet.findAll({
+          where: [
+            {hypoallergenic:userInfo.hypoallergenic},
+            {kids_status:userInfo.kids_status}]});
+      }
     }
     const pets = petData.map((pet) => pet.get({ plain: true }));
     const pets_number = pets.length;
