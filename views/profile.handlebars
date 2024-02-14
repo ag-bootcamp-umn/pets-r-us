@@ -1,30 +1,52 @@
-
 <main class="container-fluid px-0" style="overflow: hidden;">
-  <div>
-    <div class="col-auto mx-2 my-5">
-      <h2>Welcome to PetsRUS!</h2>
-      <h3>Signed in as: {{email}}</h3>
-      </br>
-      <h3>Appointments:</h3>
-      <ul>
-      {{#if appointments}}
-        {{#each appointments}}
-          <li>Appointment on {{this.date}} with {{this.petName}}</li>
-        {{/each}}
-      {{else}}
-        <li><span>You don't have any upcoming appointments. Schedule one <a href="/pets">here.</a></span></li>
-      {{/if}}
-      </ul>
-      </br>
-      <h3>Preferences</h3>
-      <ul>
-        <li>Species: {{species_preference}}</li>
-        <li>Hypoallergenic: {{allergy_preference}}</li>
-        <li>Good with Kids: {{kids_preference}}</li>
-      </ul>
-      <a href="/new-login">Want to change your preferences? Click here.</a>
+  <div class="d-flex flex-column align-items-center justify-content-center page">
+    {{#if loggedIn}}
+    <div class="text-box p-5 dash-box">
+      <div class="row">
+        <div class="col-7 mx-2 my-5">
+          <h2>Welcome to your dashboard!</h2>
+          <h3>Signed in as: {{email}}</h3>
+          </br>
+          <h3>Appointments:</h3>
+          <ul>
+            {{#if appointments}}
+            {{#each appointments}}
+            <li>Appointment on {{this.date}} with {{this.petName}}</li>
+            {{/each}}
+            {{else}}
+            <li><span>You don't have any upcoming appointments. Schedule one <a href="/pets">here.</a></span></li>
+            {{/if}}
+          </ul>
+          </br>
+          <h3>Preferences</h3>
+          <ul>
+            <li>Species: {{species_preference}}</li>
+            <li>Hypoallergenic: {{allergy_preference}}</li>
+            <li>Good with Kids: {{kids_preference}}</li>
+          </ul>
+          <a href="/new-login">Want to change your preferences? Click here.</a>
+        </div>
+        <div class="col-4 mx-2 my-5">
+          <div class="pfp-container">
+            <img src="https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg">
+          </div>
+          <div class="d-flex justify-content-center align-items-end mt-5">
+            <button class="btn btn-secondary">Delete Account</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  {{else}}
+  <div class="text-box p-5 dash-box">
+    <div class="col-8 mx-2 my-5">
+      <h2>Welcome to PetsRUS!</h2>
+      <h3><span>You are not signed in. Sign in <a href="/signin">here.</a></span></h3>
+      </br>
+    </div>
+  </div>
+  </div>
+  {{/if}}
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="./js/accountLoad.js"></script>
