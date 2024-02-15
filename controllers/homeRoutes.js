@@ -11,6 +11,10 @@ dayjs.extend(timezone);
 
 dayjs.tz.setDefault('America/Chicago');
 
+router.get('/', (req, res) => {
+  res.redirect('/pets');
+});
+
 router.get('/meet', (req, res) => {
   res.render('appointment', {
     loggedIn: req.session.loggedIn
