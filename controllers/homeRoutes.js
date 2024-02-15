@@ -1,12 +1,24 @@
 const router = require('express').Router();
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
 const withAuth = require('../utils/auth');
 const {User, Pet, Appointment} = require("../models")
 
+// Extend dayjs with UTC and timezone plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('America/Chicago');
+
+// Extend dayjs with UTC and timezone plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('America/Chicago');
+
 router.get('/', (req, res) => {
-  res.render('home', {
-    loggedIn: req.session.loggedIn
-  });
+  res.redirect('/pets');
 });
 
 router.get('/meet', (req, res) => {
@@ -16,10 +28,21 @@ router.get('/meet', (req, res) => {
 })
 
 router.get('/meet/:pet_id', async (req, res) => {
+  const user_id = req.session.userId;
+  if (!user_id) {
+    return res.redirect('/signin');
+  }
   try {
     const now = dayjs().format('YYYY-MM-DD');
     const petData = await Pet.findByPk(req.params.pet_id);
-    const pet = petData ? petData.get({ plain: true }) : null;
+    if (!petData) {
+      console.log('No Dice');
+      return res.render('404', {
+        loggedIn: req.session.loggedIn
+      })
+    }
+    const pet = petData.get({ plain: true });
+    // const pet = petData ? petData.get({ plain: true }) : null;
     res.render('appointment', {
       now, pet, loggedIn: req.session.loggedIn
     });
@@ -53,6 +76,9 @@ router.get('/user', async (req, res) => {
           }).catch(err => console.log(err));
           if (pet) {
             appointment.petName = pet.name;
+            /////////////////////////////////////////////////////////////////
+            appointment.date = dayjs.utc(appointment.date).tz('America/Chicago').format('dddd, MMMM DD, YYYY');
+            console.log(appointment.date)
           }
         }
       }
@@ -230,10 +256,45 @@ router.get('/new-login',(req, res) => {
   });
 });
 
-router.get('/success',(req, res) => {
-  res.render('success', {
-    loggedIn: req.session.loggedIn
-  });
+router.get('/success', async (req, res) => {
+  const user_id = req.session.userId;
+  if (!user_id) {
+    return res.redirect('/signin');
+  }
+  try {
+    const apptData = await Appointment.findAll({
+      where: {
+        user_id: user_id,
+      },
+      include: [Pet],
+      limit: 1,
+      order: [['date_created', 'DESC']]
+    });
+    // console.log('apptData:', apptData);
+    if (!apptData.length) {
+      return res.render('404', {
+        loggedIn: req.session.loggedIn
+      })
+    }
+
+    console.log('apptData[0]', apptData[0].date.toString());
+
+    const appt = apptData[0].get({ plain: true});
+
+    const localDate = dayjs.utc(appt.date).tz('America/Chicago').format('dddd, MMMM DD, YYYY');
+    console.log('formatted', appt.date);
+    
+    console.log('formatted', appt.date);
+
+    res.render('success', {
+      appt: { ...appt, date: localDate },
+      loggedIn: req.session.loggedIn
+    })
+    
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

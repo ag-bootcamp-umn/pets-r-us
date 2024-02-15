@@ -1,12 +1,20 @@
 const router = require('express').Router();
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
 const { Appointment } = require('../../models');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 // Getting booking input
 router.post('/', async (req, res) => {
-  console.log(req.body);
+  console.log('req.body', req.body);
   try {
-    console.log('ok:', req.body);
-    const appointment = await Appointment.create(req.body)
+    const { date, pet_id } = req.body;
+    const localDate = dayjs(date).tz('America/Chicago').format('YYYY-MM-DD HH:mm:ss');
+    const appointment = await Appointment.create({date: localDate, pet_id, user_id: req.session.userId})
     res.json(appointment);
   } catch (err) {
     res.status(500).json(err);

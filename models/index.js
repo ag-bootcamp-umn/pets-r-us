@@ -15,4 +15,19 @@ User.belongsToMany(Pet, {
       unique: false
     }});
 
+  Appointment.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+  });
+  User.hasMany(Appointment);
+
+  Appointment.belongsTo(Pet, {
+    foreignKey: 'pet_id',
+    onDelete: 'CASCADE'
+  });
+  Pet.hasMany(Appointment, {
+    onDelete: 'CASCADE'
+  });
+
+
 module.exports = { User, Pet, Appointment };
