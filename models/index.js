@@ -25,9 +25,7 @@ User.belongsToMany(Pet, {
     foreignKey: 'pet_id',
     onDelete: 'CASCADE'
   });
-  Pet.hasMany(Appointment, {
-    onDelete: 'CASCADE'
-  });
+  Pet.hasMany(Appointment);
 
 
 module.exports = { User, Pet, Appointment };
