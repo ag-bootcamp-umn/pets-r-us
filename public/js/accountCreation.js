@@ -55,6 +55,7 @@ $(document).ready(function() {
         .then(response => {
             if (response.ok) {
                 console.log(`Answers successfully submitted to ${userId}`);
+                document.location.replace('/user');
             } else {
                 console.error('Failed to submit answers');
             }
