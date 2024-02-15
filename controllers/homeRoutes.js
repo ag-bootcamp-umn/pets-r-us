@@ -2,8 +2,6 @@ const router = require('express').Router();
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
-const utc = require('dayjs/plugin/utc');
-const timezone = require('dayjs/plugin/timezone');
 const withAuth = require('../utils/auth');
 const {User, Pet, Appointment} = require("../models")
 
@@ -19,6 +17,10 @@ dayjs.extend(timezone);
 
 dayjs.tz.setDefault('America/Chicago');
 
+router.get('/', (req, res) => {
+  res.redirect('/pets');
+});
+
 router.get('/meet', (req, res) => {
   res.render('appointment', {
     loggedIn: req.session.loggedIn
@@ -26,10 +28,6 @@ router.get('/meet', (req, res) => {
 })
 
 router.get('/meet/:pet_id', async (req, res) => {
-  const user_id = req.session.userId;
-  if (!user_id) {
-    return res.redirect('/signin');
-  }
   const user_id = req.session.userId;
   if (!user_id) {
     return res.redirect('/signin');
