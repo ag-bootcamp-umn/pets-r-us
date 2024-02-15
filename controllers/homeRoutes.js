@@ -70,6 +70,9 @@ router.get('/user', async (req, res) => {
           }).catch(err => console.log(err));
           if (pet) {
             appointment.petName = pet.name;
+            /////////////////////////////////////////////////////////////////
+            appointment.date = dayjs.utc(appointment.date).tz('America/Chicago').format('dddd, MMMM DD, YYYY');
+            console.log(appointment.date)
           }
         }
       }
