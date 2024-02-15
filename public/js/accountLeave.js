@@ -1,4 +1,4 @@
-let timer = 5;
+let timer = 3;
 
 const intervalId = setInterval(() => {
     $('#timer').text(timer);
@@ -22,9 +22,6 @@ const logout = async () => {
   
     if (response.ok) {
         console.log("You've been signed out successfully.")
-
-    } else {
-      alert('You are not signed in.');
     }
   };
 

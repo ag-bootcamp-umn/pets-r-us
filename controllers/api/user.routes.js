@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../../models');
+const { deleteUserById } = require('../../utils/helpers');
 
 // New Account
 router.post('/signup', async (req, res) => {
@@ -103,6 +104,33 @@ router.post('/logout', (req, res) => {
     req.session.destroy(() => {
       res.status(204).end();
     });
+  } else {
+    res.status(404).end();
+  }
+});
+
+module.exports = router;
+
+// Delete
+router.delete('/delete', (req, res) => {
+  if (req.session.loggedIn) {
+    const userId = req.session.userId;
+
+    deleteUserById(userId)
+      .then(() => {
+        req.session.destroy((err) => {
+          if (err) {
+            console.error('Session destruction error:', err);
+            res.status(500).send(`Ruh roh, Raggy.  Can't sign out.`);
+          } else {
+            res.status(204).end();
+          }
+        });
+      })
+      .catch((err) => {
+        console.error('Database deletion error:', err);
+        res.status(500).send(`Ruh roh, Raggy.  Can't delete account.`);
+      });
   } else {
     res.status(404).end();
   }
