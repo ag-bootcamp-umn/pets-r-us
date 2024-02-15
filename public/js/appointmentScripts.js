@@ -8,7 +8,6 @@ const bookAppointment = async () => {
   const appointmentPost = {
     date,
     pet_id: pet.id,
-    // user_id: sessionStorage.userId
   };
   
 const response = await fetch('/api/meet', {
@@ -22,7 +21,7 @@ const response = await fetch('/api/meet', {
     console.log('OK!!!')
     document.location.replace('/success');
   } else {
-    console.log('No Dice.')
+    console.log('Something went wrong.')
   }
 }
 

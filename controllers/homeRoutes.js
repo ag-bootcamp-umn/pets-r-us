@@ -235,25 +235,23 @@ router.get('/success', async (req, res) => {
     return res.redirect('/signin');
   }
   try {
-    const apptData = await Appointment.findOne({
+    const apptData = await Appointment.findAll({
       where: {
         user_id: user_id,
       },
       include: [Pet],
+      limit: 1,
+      order: [['date_created', 'DESC']]
     });
-    console.log('apptData:', apptData);
+    // console.log('apptData:', apptData);
     if (!apptData) {
-      console.log('No Go');
       return res.render('404', {
         loggedIn: req.session.loggedIn
       })
     }
 
-    const appt = apptData.get({ plain: true});
-    // console.log('appt 1:', appt);
-    console.log('appt.date', appt.date)
+    const appt = apptData[0].get({ plain: true});
     appt.date = appt.date.toDateString();
-    console.log('appt 2:', appt);
     res.render('success', {
       appt, loggedIn: req.session.loggedIn
     })
