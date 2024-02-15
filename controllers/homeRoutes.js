@@ -223,6 +223,12 @@ router.get('/signout',(req, res) => {
   });
 });
 
+router.get('/goodbye',(req, res) => {
+  res.render('goodbye', {
+    loggedIn: req.session.loggedIn
+  });
+});
+
 router.get('/new-login',(req, res) => {
   res.render('new-login', {
     loggedIn: req.session.loggedIn

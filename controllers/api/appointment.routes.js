@@ -8,9 +8,6 @@ router.post('/', async (req, res) => {
   try {
     console.log('ok:', req.body);
     const { date, pet_id } = req.body;
-    // console.log('date 1:', date);
-    // date = dayjs(date);
-    // console.log('date 2:', date);
     const appointment = await Appointment.create({date, pet_id, user_id: req.session.userId})
     res.json(appointment);
   } catch (err) {

@@ -1,22 +1,32 @@
-<main>
-<div class="text-center">
-  <h2>Book an Appointment</h2>
-  <p>Please select a date to meet <h4>{{pet.name}}</h4>.</p>
-  <img src="{{pet.photo}}" alt="A beautifil photo of {{pet.name}}">
-</div>
-<div class="text-center">
-  <form class="appointment-form">
-<input type="date" id="appointment-date" value="{{now}}" min="2024-02-01" max="2030-12-31" />
-  <p>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </p>
-  </form>
+<main class="container-fluid px-0" style="overflow: hidden;">
+  <div
+    class="d-flex flex-column align-items-center justify-content-center page"
+  >
+    <div class="text-box p-5 text-center">
+        <h2>Book an Appointment</h2>
+        <p>Please select a date to meet</p>
+        <h4>{{pet.name}}</h4>
+        <form class="appointment-form">
+          <input
+            type="date"
+            id="appointment-date"
+            value="{{now}}"
+            min="2024-02-01"
+            max="2030-12-31"
+            class="my-4"
+          />
+          <p>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </p>
+        </form>
 
-</div>
+      </div>
+    </div>
+  </div>
 </main>
 
-  <script>
-    const now = "{{now}}";
-    const pet = {{{render_json pet}}};
-  </script>
+<script>
+  const now = "{{now}}"; const pet =
+  {{{render_json pet}}};
+</script>
 <script src="/js/appointmentScripts.js"></script>
