@@ -209,3 +209,39 @@ h3 {
 .mod-container {
   width: 70%;
 }
+
+.quarter {
+  width: 25%;
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 430px) {
+  :root {
+    --logo-size: 2rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  .page {
+    height: 100%;
+  }
+  .page h2 {
+    font-size: 1.8rem;
+  }
+  .page label {
+    font-size: 1.2rem;
+  }
+  .quarter {
+    width: 80%;
+  }
+  .text-box {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+  .dash-box {
+    width: 100%;
+  }
+  .pfp-container img {
+    width: 150px;
+  }
+}
