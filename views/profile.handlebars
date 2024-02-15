@@ -13,6 +13,7 @@
             {{#each appointments}}
             <li>Appointment on {{this.date}} with {{this.petName}}</li>
             {{/each}}
+            <li><span>Interested in more pets? Schedule <a href="/pets">another appointment.</a></span></li>
             {{else}}
             <li><span>You don't have any upcoming appointments. Schedule one <a href="/pets">here.</a></span></li>
             {{/if}}
