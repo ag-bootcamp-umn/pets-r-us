@@ -1,10 +1,9 @@
 const appointmentForm = document.querySelector('.appointment-form');
-console.log("Current date:", now);
-console.log("Pet data:", pet);
 
 const bookAppointment = async () => {
   const date = document.querySelector('#appointment-date').value;
   if (now >= date) return alert('Please choose a date in the future.');
+  console.log('date:', date);
   const appointmentPost = {
     date,
     pet_id: pet.id,

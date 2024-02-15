@@ -1,7 +1,15 @@
 const router = require('express').Router();
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
 const withAuth = require('../utils/auth');
 const {User, Pet, Appointment} = require("../models")
+
+// Extend dayjs with UTC and timezone plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('America/Chicago');
 
 router.get('/meet', (req, res) => {
   res.render('appointment', {
@@ -250,18 +258,26 @@ router.get('/success', async (req, res) => {
       order: [['date_created', 'DESC']]
     });
     // console.log('apptData:', apptData);
-    if (!apptData) {
+    if (!apptData.length) {
       return res.render('404', {
         loggedIn: req.session.loggedIn
       })
     }
 
-    const appt = apptData[0].get({ plain: true});
-    appt.date = appt.date.toDateString();
-    res.render('success', {
-      appt, loggedIn: req.session.loggedIn
-    })
+    console.log('apptData[0]', apptData[0].date.toString());
 
+    const appt = apptData[0].get({ plain: true});
+
+    const localDate = dayjs.utc(appt.date).tz('America/Chicago').format('dddd, MMMM DD, YYYY');
+    console.log('formatted', appt.date);
+    
+    console.log('formatted', appt.date);
+
+    res.render('success', {
+      appt: { ...appt, date: localDate },
+      loggedIn: req.session.loggedIn
+    })
+    
   } catch (err) {
     console.log(err)
     res.status(500).json(err);
