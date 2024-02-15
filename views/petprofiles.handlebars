@@ -4,14 +4,16 @@
   <div class="row">
     {{#each pets as |pet| }}
     <div class="col-6 col-md-4">
-      <h2>
+        <a class="logo" href="#" data-bs-toggle="modal" data-bs-target="#petModal{{pet.id}}">
         <div class="card">
           <img src="{{pet.photo}}" alt="{{pet.name}}">
           <div class="card-body text-center">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#petModal{{pet.id}}">{{pet.name}}</a>
+            <h2>
+            {{pet.name}}
+            </h2>
           </div>
         </div>
-      </h2>
+        </a>
     </div>
     <div class="modal fade" id="petModal{{pet.id}}" tabindex="-1" aria-labelledby="petModal{{pet.id}}Label"
       aria-hidden="true">

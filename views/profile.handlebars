@@ -31,10 +31,30 @@
             <img src="https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg">
           </div>
           <div class="d-flex justify-content-center align-items-end mt-5">
-            <button class="btn btn-secondary">Delete Account</button>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">
+              <button id="delete-btn" class="btn btn-secondary">Delete Account</button>
+            </a>
           </div>
         </div>
       </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered d-flex justify-content-center">
+    <div class="modal-content mod-container">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="deleteModalLabel">Are you sure you want to delete your account?</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-secondary" id="confirmDelete">Yes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     </div>
   </div>
   {{else}}
