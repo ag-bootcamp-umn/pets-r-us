@@ -11,6 +11,16 @@ dayjs.extend(timezone);
 
 dayjs.tz.setDefault('America/Chicago');
 
+// Extend dayjs with UTC and timezone plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('America/Chicago');
+
+router.get('/', (req, res) => {
+  res.redirect('/pets');
+});
+
 router.get('/meet', (req, res) => {
   res.render('appointment', {
     loggedIn: req.session.loggedIn
@@ -66,6 +76,9 @@ router.get('/user', async (req, res) => {
           }).catch(err => console.log(err));
           if (pet) {
             appointment.petName = pet.name;
+            /////////////////////////////////////////////////////////////////
+            appointment.date = dayjs.utc(appointment.date).tz('America/Chicago').format('dddd, MMMM DD, YYYY');
+            console.log(appointment.date)
           }
         }
       }
