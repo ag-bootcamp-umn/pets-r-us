@@ -26,14 +26,17 @@ Pet.init(
     species: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue:1
     },
     hypoallergenic: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue:false
     },
     kids_status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue:true
     },
     dob: {
       type: DataTypes.DATE,
