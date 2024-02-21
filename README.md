@@ -1,5 +1,5 @@
 # Pets R Us [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-Please visit the [Pets R Us](https://Heroku Link HERE) website.
+Please visit the [Pets R Us](https://petsrus-mock-charity-bba28605e28b.herokuapp.com/pets) website.
 
 ## Description
 Pets R Us is a website where users can view adoptable pets and schedule a vist with the pet.
